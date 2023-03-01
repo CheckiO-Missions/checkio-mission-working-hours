@@ -1,0 +1,24 @@
+{% comment %}New initial code template{% endcomment %}
+{% block env %}{% endblock env %}
+
+{% block start %}
+def working_hours(date1: str, date2: str, start_time: str, end_time: str, holy: list[str]) -> int:
+    # your code here
+    return 0
+{% endblock start %}
+
+{% block example %}
+print('Example:')
+print(working_hours("2023-03-01", "2023-03-01", "09:00", "17:00", []))
+{% endblock %}
+
+# These "asserts" are used for self-checking
+{% block tests %}
+{% for t in tests %}
+assert {% block call %}working_hours({{t.input|p_args}})
+{% endblock %} == {% block result %}{{t.answer|p}}{% endblock %}{% endfor %}
+{% endblock %}
+
+{% block final %}
+print("The mission is done! Click 'Check Solution' to earn rewards!")
+{% endblock final %}

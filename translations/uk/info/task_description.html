@@ -1,0 +1,41 @@
+<!-- Describe task in general -->
+
+<p style="text-align: justify;">
+    Напиши функцію, яка приймає дві дати і дві години і повертає загальну кількість робочих годин між двома датами (включаючи обидві). Години представляють початок і кінець робочого дня. Робочий час визначається як різниця між кінцевим та початковим часом, з понеділка по п'ятницю, за винятком святкових днів. Таким чином, функція також приймає аргумент, який визначає {% if is_js %}масив{% else %}список{% endif %} святкових днів на виключення (може бути порожнім).
+</p>
+
+<!-- <p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
+</p> -->
+
+<!-- Explain input and output values -->
+<p>
+    <strong>Вхідні дані:</strong> П'ять аргументів: дві дати як рядки, дві години як рядки, святкові дні як {% if is_js %}масив{% else %}список{% endif %} рядків.
+</p>
+
+<p>
+    <strong>Вихідні дані:</strong> Ціле число загальної кількості робочих годин. 
+</p>
+
+
+<p>
+    <strong>Приклади:</strong>
+</p>
+
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<p class="for_info_only">
+    <strong>Сфера застосування:</strong>
+    <i>підрахунок загальної кількості робочих годин, відпрацьованих працівником або устаткуванням - це звична річ на підприємствах.</i>
+</p>
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<!-- <p>
+    <strong>Preconditions:</strong>
+    <ul>
+    <li><i>both given ints should be between -1000 and 1000</i></li>
+    </ul>
+</p> -->

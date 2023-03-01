@@ -1,0 +1,41 @@
+<!-- Describe task in general -->
+
+<p style="text-align: justify;">
+    Write a function that takes two dates and two times as input and returns the total number of working hours between the two dates (incl. both). Times representing the start and end of a workday. Working hours are defined as the time between the end and start times, Monday through Friday, excluding holidays. So the function also takes an argument that specifies a{% if is_js %}n array{% else %} list{% endif %} of holidays to exclude (could be empty).  
+</p>
+
+<!-- <p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
+</p> -->
+
+<!-- Explain input and output values -->
+<p>
+    <strong>Input:</strong> Five arguments: two dates as strings, two times as strings, holidays as {% if is_js %}array{% else %}list{% endif %} of strings.
+</p>
+
+<p>
+    <strong>Output:</strong> Number of total working hours as integer. 
+</p>
+
+
+<p>
+    <strong>Examples:</strong>
+</p>
+
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<p class="for_info_only">
+    <strong>How it’s used:</strong>
+    <i>counting a total number of working hours, made by a worker or a machine is a usual thing at enterprises.</i>
+</p>
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<!-- <p>
+    <strong>Preconditions:</strong>
+    <ul>
+    <li><i>both given ints should be between -1000 and 1000</i></li>
+    </ul>
+</p> -->
