@@ -48,7 +48,7 @@ TESTS = {
         "explanation": "no work at weekend and holidays"
         },
         {
-        "input": ["2023-04-17", "2023-04-30", "08:15:00", "17:45:00", ["2023-04-19", "2023-04-21", "2023-04-28"]]
+        "input": ["2023-04-17", "2023-04-30", "08:15:00", "17:45:00", ["2023-04-19", "2023-04-21", "2023-04-28"]],
         "answer": 66.5,
         "explanation": "longer range, a few holidays, with minutes"
         }
