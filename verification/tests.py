@@ -26,8 +26,8 @@ TESTS = {
         "explanation": "start and end dates are consecutive weekdays and there is one holiday"
         },
         {
-        "input": ["2023-03-01", "2023-03-05", "08:45", "17:45", ["2023-03-03"]],
-        "answer": 18,
+        "input": ["2023-03-01", "2023-03-05", "08:45", "17:10", ["2023-03-03"]],
+        "answer": 16.83,
         "explanation": "excluding weekend and holiday, have minutes"
         },
     ],
