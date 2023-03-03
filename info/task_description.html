@@ -3,6 +3,9 @@
 <p style="text-align: justify;">
     Write a function that takes two dates and two times as input and returns the total number of working hours between the two dates (incl. both). Times representing the start and end of a workday. Working hours are defined as the time between the end and start times, Monday through Friday, excluding holidays. So the function also takes an argument that specifies a{% if is_js %}n array{% else %} list{% endif %} of holidays to exclude (could be empty).  
 </p>
+<p>
+    Time may have minutes. Convert them into float as minutes/60 with two-digits precision.
+</p>
 
 <!-- <p style="text-align: center;">
     <img  title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
@@ -14,7 +17,7 @@
 </p>
 
 <p>
-    <strong>Output:</strong> Number of total working hours as integer. 
+    <strong>Output:</strong> Number of total working hours as integer or float. 
 </p>
 
 
