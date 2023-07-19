@@ -13,11 +13,11 @@
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input:</strong> Five arguments: two dates as strings, two times as strings, holidays as {% if is_js %}array{% else %}list{% endif %} of strings.
+    <strong>Input:</strong> Five arguments: two dates as strings <span translate="no">(str{% if is_js %}ing{% endif %})</span>, two times as strings, holidays as <span translate="repeat">{% if is_js %}array{% else %}list{% endif %}</span> of strings.
 </p>
 
 <p>
-    <strong>Output:</strong> Number of total working hours as integer or float. 
+    <strong>Output:</strong> Number of total working hours as integer or float <span translate="no">({% if is_js %}number{% else %}int | float{% endif %})</span>. 
 </p>
 
 

@@ -1,0 +1,135 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        I have no idea how to start solving this mission.
+    </div>
+    <div class="answer">
+        <p>
+            Catch an idea 💡! Convert all dates (given two and holidays) into <b class="code">date</b> format, convert times into minutes and seconds as integers, find working day duration. While iterating over dates between the given two, count only those which are not in holidays and not weekend. Having day duration and a number of real working days find total working hours.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, what should I start from?
+    </div>
+    <div class="answer">
+        <p>
+            To work with dates and times you may use such objects from <a target="_blank" href="https://docs.python.org/3/library/datetime.html">datetime</a> standard module, as <b class="code">date</b> and <b class="code">timedelta</b>. Read about them, it helps you a lot to solve this mission.
+        </p>
+        <pre class="brush: python">
+from datetime import timedelta, date
+        </pre>
+        <p>
+            Let's convert all given dates from <b class="code">str</b> type to <b class="code">date</b> object. Use built-in function <a target="_blank" href="https://www.w3schools.com/python/ref_func_map.asp">map()</a> and apply <a target="_blank" href="https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat">date.fromisoformat</a> method to every date in sequence (all given strings are suitable for this format conversion). Notice, that when you refer to a method, do not use parenthesis.
+        </p>
+        <pre class="brush: python">
+d1, d2 = map(date.fromisoformat, (date1, date2))
+holy = tuple(map(date.fromisoformat, holy))
+        </pre>
+        <p>
+            <b class="code">map()</b> function returns <b class="code">map</b> object, so you need to use unpacking in the first case and converting into sequence in the second case with <b class="code">tuple()</b>.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        What to do next?
+    </div>
+    <div class="answer">
+        <p>
+            Use the same logic and convert times into minutes and seconds as integers. <a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">split()</a> strings into minutes and seconds with ":" separator.
+        </p>
+        <pre class="brush: python">
+h1, m1 = map(int, start_time.split(":"))
+h2, m2 = map(int, end_time.split(":"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I need help!
+    </div>
+    <div class="answer">
+        <p>
+            Now you may calculate a duration of working day as difference of hours and minutes. Use <b class="code">timedelta</b> object for this. Also declare a variable to store a number of real working days.
+        </p>
+        <pre class="brush: python">
+working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+days = 0
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        How to find a number of working days?
+    </div>
+    <div class="answer">
+        <p>
+            I offer you to change <b class="code">d1</b> from its original value day-by-day to <b class="code">d2</b> and check every day to not be a holiday or weekend. If it's <b class="code">True</b> - increment <b class="code">days</b>. Use <a target="_blank" href="https://www.w3schools.com/python/python_while_loops.asp">while</a> loop to iterate over dates and <b class="code">date.isoweekday()</b> to find out a weekday of date.
+        </p>
+        <pre class="brush: python">
+while d1 <= d2:
+    if d1 not in holy and d1.isoweekday() < 6:
+        days += 1
+    d1 += timedelta(days=1)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        What to do when I calculated a number of working days?
+    </div>
+    <div class="answer">
+        <p>
+            Calculate a float number of working hours a day as <b class="code">timedelta.seconds/3600</b>, multiply by number of days and round to 2 signs after dot.
+        </p>
+        <pre class="brush: python">
+return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        So, how my final solution should look like?
+    </div>
+    <div class="answer">
+        <p>
+            You just need to join all previous hints and wrap your code into function expression. Using type hints for input and output data are highly recommended.
+        </p>
+        <p>Here is the whole solution:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from datetime import timedelta, date
+
+
+def working_hours(
+    date1: str, date2: str, start_time: str, end_time: str, holy: list[str]
+) -> int | float:
+    
+    d1, d2 = map(date.fromisoformat, (date1, date2))
+    holy = tuple(map(date.fromisoformat, holy))
+    h1, m1 = map(int, start_time.split(":"))
+    h2, m2 = map(int, end_time.split(":"))
+    working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+    days = 0
+    while d1 <= d2:
+        if d1 not in holy and d1.isoweekday() < 6:
+            days += 1
+        d1 += timedelta(days=1)
+
+    return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+        </div>
+        <p>Click <b>Best Solutions</b> at mission menu and see a lot of other interesting solutions!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Thanks! I know and understand more now! Everything works fine!
+    </div>
+    <div class="answer">
+        Glad to hear it 👍!
+    </div>
+</div>
+</body>
