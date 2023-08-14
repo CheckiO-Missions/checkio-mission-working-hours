@@ -1,0 +1,135 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Nie mam pojęcia, jak zacząć rozwiązywać tę misję.
+    </div>
+    <div class="answer">
+        <p>
+            Proszę złapać jakiś pomysł 💡! Proszę przekonwertować wszystkie daty (podane dwie i święta) do formatu <b class="code">date</b>, przekonwertować czas na minuty i sekundy jako liczby całkowite, znaleźć czas trwania dnia roboczego. Podczas iteracji po datach między podanymi dwoma, proszę policzyć tylko te, które nie są świętami i nie są weekendami. Mając czas trwania dnia i liczbę rzeczywistych dni roboczych, proszę znaleźć całkowitą liczbę godzin pracy.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Od czego powinienem zacząć?
+    </div>
+    <div class="answer">
+        <p>
+            Do pracy z datami i godzinami mogą Państwo użyć takich obiektów z modułu standardowego <a target="_blank" href="https://docs.python.org/3/library/datetime.html">datetime</a>, jak <b class="code">date</b> i <b class="code">timedelta</b>. Proszę poczytać o nich, to bardzo pomoże w rozwiązaniu tego zadania.
+        </p>
+        <pre class="brush: python">
+from datetime import timedelta, date
+        </pre>
+        <p>
+            Proszę przekonwertować wszystkie podane daty z typu <b class="code">str</b> na obiekt <b class="code">date</b>. Proszę użyć wbudowanej funkcji <a target="_blank" href="https://www.w3schools.com/python/ref_func_map.asp">map()</a> i zastosować metodę <a target="_blank" href="https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat">date.fromisoformat</a> do każdej daty po kolei (wszystkie podane ciągi znaków nadają się do tej konwersji formatu). Proszę zauważyć, że gdy odwołują się Państwo do metody, proszę nie używać nawiasów.
+        </p>
+        <pre class="brush: python">
+d1, d2 = map(date.fromisoformat, (date1, date2))
+holy = tuple(map(date.fromisoformat, holy))
+        </pre>
+        <p>
+            <b class="code">map()</b> funkcja zwraca obiekt <b class="code">map</b>, więc w pierwszym przypadku należy użyć rozpakowywania, a w drugim konwersji na sekwencję za pomocą <b class="code">tuple()</b>.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Co robić dalej?
+    </div>
+    <div class="answer">
+        <p>
+            Proszę użyć tej samej logiki i przekonwertować czas na minuty i sekundy jako liczby całkowite. <a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">split()</a> ciągi znaków na minuty i sekundy z separatorem ":".
+        </p>
+        <pre class="brush: python">
+h1, m1 = map(int, start_time.split(":"))
+h2, m2 = map(int, end_time.split(":"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Proszę o pomoc!
+    </div>
+    <div class="answer">
+        <p>
+            Teraz mogą Państwo obliczyć czas trwania dnia roboczego jako różnicę godzin i minut. W tym celu proszę użyć obiektu <b class="code">timedelta</b>. Proszę również zadeklarować zmienną do przechowywania liczby rzeczywistych dni roboczych.
+        </p>
+        <pre class="brush: python">
+working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+days = 0
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Jak znaleźć liczbę dni roboczych?
+    </div>
+    <div class="answer">
+        <p>
+            Proponuję zmienić <b class="code">d1</b> z pierwotnej wartości dzień po dniu na <b class="code">d2</b> i sprawdzać każdego dnia, czy nie jest to święto lub weekend. Jeśli jest to <b class="code">True</b> - proszę inkrementować <b class="code">days</b>. Proszę użyć pętli <a target="_blank" href="https://www.w3schools.com/python/python_while_loops.asp">while</a>, aby iterować po datach i <b class="code">date.isoweekday()</b>, aby znaleźć dzień tygodnia daty.
+        </p>
+        <pre class="brush: python">
+while d1 <= d2:
+    if d1 not in holy and d1.isoweekday() < 6:
+        days += 1
+    d1 += timedelta(days=1)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Co zrobić po obliczeniu liczby dni roboczych?
+    </div>
+    <div class="answer">
+        <p>
+            Proszę obliczyć zmiennoprzecinkową liczbę godzin pracy dziennie jako <b class="code">timedelta.seconds/3600</b>, pomnożyć przez liczbę dni i zaokrąglić do 2 znaków po kropce.
+        </p>
+        <pre class="brush: python">
+return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Jak więc powinno wyglądać moje ostateczne rozwiązanie?
+    </div>
+    <div class="answer">
+        <p>
+            Wystarczy połączyć wszystkie poprzednie podpowiedzi i zawinąć kod w wyrażenie funkcyjne. Używanie podpowiedzi typu dla danych wejściowych i wyjściowych jest wysoce zalecane.
+        </p>
+        <p>Oto całe rozwiązanie:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from datetime import timedelta, date
+
+
+def working_hours(
+    date1: str, date2: str, start_time: str, end_time: str, holy: list[str]
+) -> int | float:
+    
+    d1, d2 = map(date.fromisoformat, (date1, date2))
+    holy = tuple(map(date.fromisoformat, holy))
+    h1, m1 = map(int, start_time.split(":"))
+    h2, m2 = map(int, end_time.split(":"))
+    working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+    days = 0
+    while d1 <= d2:
+        if d1 not in holy and d1.isoweekday() < 6:
+            days += 1
+        d1 += timedelta(days=1)
+
+    return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+        </div>
+        <p>Proszę kliknąć <b>Best Solutions</b> w menu misji i zobaczyć wiele innych ciekawych rozwiązań!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Dzięki! Teraz wiem i rozumiem więcej! Wszystko działa jak należy!
+    </div>
+    <div class="answer">
+        Miło mi to słyszeć 👍!
+    </div>
+</div>
+</body>
