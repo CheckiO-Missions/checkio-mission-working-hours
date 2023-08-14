@@ -1,0 +1,135 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Je n'ai aucune idée de la manière de commencer à résoudre cette mission.
+    </div>
+    <div class="answer">
+        <p>
+            Trouvez une idée 💡! Convertir toutes les dates (deux données et les jours fériés) au format <b class="code">date</b>, convertir les temps en minutes et secondes sous forme d'entiers, trouver la durée d'un jour ouvrable. En itérant sur les dates entre les deux données, ne comptez que celles qui ne sont pas en vacances et qui ne sont pas en week-end. En disposant de la durée d'une journée et d'un certain nombre de jours de travail réels, calculez le nombre total d'heures de travail.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, par quoi dois-je commencer?
+    </div>
+    <div class="answer">
+        <p>
+            Pour travailler avec les dates et les heures, vous pouvez utiliser les objets du module standard <a target="_blank" href="https://docs.python.org/3/library/datetime.html">datetime</a>, tels que <b class="code">date</b> et <b class="code">timedelta</b>. Lisez-les, cela vous aidera beaucoup à résoudre cette mission.
+        </p>
+        <pre class="brush: python">
+from datetime import timedelta, date
+        </pre>
+        <p>
+            Convertissons toutes les dates données du type <b class="code">str</b> à l'objet <b class="code">date</b>. Utilisez la fonction intégrée <a target="_blank" href="https://www.w3schools.com/python/ref_func_map.asp">map()</a> et appliquez la méthode <a target="_blank" href="https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat">date.fromisoformat</a> à chaque date de la séquence (toutes les chaînes données conviennent à cette conversion de format). Notez que lorsque vous faites référence à une méthode, n'utilisez pas de parenthèses.
+        </p>
+        <pre class="brush: python">
+d1, d2 = map(date.fromisoformat, (date1, date2))
+holy = tuple(map(date.fromisoformat, holy))
+        </pre>
+        <p>
+            <b class="code">map()</b> la fonction <b class="code">map</b> renvoie un objet , vous devez donc utiliser le déballage dans le premier cas et la conversion en séquence dans le second cas avec <b class="code">tuple()</b>.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Que faire ensuite?
+    </div>
+    <div class="answer">
+        <p>
+            Utilisez la même logique et convertissez les temps en minutes et en secondes sous forme d'entiers. <a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">split()</a> chaînes de caractères en minutes et en secondes avec le séparateur ":".
+        </p>
+        <pre class="brush: python">
+h1, m1 = map(int, start_time.split(":"))
+h2, m2 = map(int, end_time.split(":"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        J'ai besoin d'aide!
+    </div>
+    <div class="answer">
+        <p>
+            Vous pouvez maintenant calculer la durée d'une journée de travail en faisant la différence entre les heures et les minutes. Utilisez pour cela l'objet <b class="code">timedelta</b>. Déclarez également une variable pour stocker un nombre de jours ouvrables réels.
+        </p>
+        <pre class="brush: python">
+working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+days = 0
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Comment trouver un nombre de jours ouvrables?
+    </div>
+    <div class="answer">
+        <p>
+            Je vous propose de changer <b class="code">d1</b> de sa valeur d'origine jour par jour en <b class="code">d2</b> et de vérifier chaque jour qu'il ne s'agit pas d'un jour férié ou d'un week-end. Si c'est <b class="code">True</b> - incrémentez <b class="code">days</b>. Utilisez la boucle <a target="_blank" href="https://www.w3schools.com/python/python_while_loops.asp">while</a> pour itérer sur les dates et <b class="code">date.isoweekday()</b> pour trouver le jour de semaine de la date.
+        </p>
+        <pre class="brush: python">
+while d1 <= d2:
+    if d1 not in holy and d1.isoweekday() < 6:
+        days += 1
+    d1 += timedelta(days=1)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Que faire lorsque j'ai calculé un nombre de jours ouvrables?
+    </div>
+    <div class="answer">
+        <p>
+            Calculez le nombre flottant d'heures de travail par jour comme <b class="code">timedelta.seconds/3600</b>, multipliez par le nombre de jours et arrondissez à 2 signes après le point.
+        </p>
+        <pre class="brush: python">
+return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        À quoi devrait ressembler ma solution finale?
+    </div>
+    <div class="answer">
+        <p>
+            Il vous suffit de combiner tous les indices précédents et d'envelopper votre code dans une expression de fonction. Il est fortement recommandé d'utiliser des indications de type pour les données d'entrée et de sortie.
+        </p>
+        <p>Voici la solution complète:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from datetime import timedelta, date
+
+
+def working_hours(
+    date1: str, date2: str, start_time: str, end_time: str, holy: list[str]
+) -> int | float:
+    
+    d1, d2 = map(date.fromisoformat, (date1, date2))
+    holy = tuple(map(date.fromisoformat, holy))
+    h1, m1 = map(int, start_time.split(":"))
+    h2, m2 = map(int, end_time.split(":"))
+    working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+    days = 0
+    while d1 <= d2:
+        if d1 not in holy and d1.isoweekday() < 6:
+            days += 1
+        d1 += timedelta(days=1)
+
+    return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+        </div>
+        <p>Cliquez sur <b>Best Solutions</b> dans le menu mission et découvrez de nombreuses autres solutions intéressantes!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Merci beaucoup! Je sais et je comprends mieux maintenant! Tout fonctionne bien!
+    </div>
+    <div class="answer">
+        Heureux de l'apprendre 👍!
+    </div>
+</div>
+</body>
