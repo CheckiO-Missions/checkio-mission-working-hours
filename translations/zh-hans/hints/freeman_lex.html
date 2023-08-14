@@ -1,0 +1,135 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        我不知道如何开始解决这个任务。
+    </div>
+    <div class="answer">
+        <p>
+            给你个主意💡！将所有日期（给定的两个日期和节假日）转换为<b class="code">date</b> 格式，将时间转换为整数的分钟和秒，找出工作日的持续时间。在遍历给定两个日期之间的日期时，只计算不在节假日和周末的日期。有了工作日持续时间和实际工作日数，就可以求出总工作时间。
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        好吧，我应该从哪方面入手呢？
+    </div>
+    <div class="answer">
+        <p>
+            要处理日期和时间，您可以使用<a target="_blank" href="https://docs.python.org/3/library/datetime.html">datetime</a> 标准模块中的对象，如<b class="code">date</b> 和<b class="code">timedelta</b> 。请阅读它们的相关信息，这对你完成任务大有帮助。
+        </p>
+        <pre class="brush: python">
+from datetime import timedelta, date
+        </pre>
+        <p>
+            让我们将所有给定的日期从<b class="code">str</b> 类型转换为<b class="code">date</b> 对象。使用内置函数<a target="_blank" href="https://www.w3schools.com/python/ref_func_map.asp">map()</a> ，对每一个日期依次应用<a target="_blank" href="https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat">date.fromisoformat</a> 方法（所有给定字符串都适合这种格式转换）。注意，在引用方法时，不要使用括号。
+        </p>
+        <pre class="brush: python">
+d1, d2 = map(date.fromisoformat, (date1, date2))
+holy = tuple(map(date.fromisoformat, holy))
+        </pre>
+        <p>
+            <b class="code">map()</b> 函数返回<b class="code">map</b> 对象，因此在第一种情况下需要使用解压缩，在第二种情况下使用<b class="code">tuple()</b> 转换为序列。
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        下一步该怎么做？
+    </div>
+    <div class="answer">
+        <p>
+            使用相同的逻辑，将时间转换为整数的分钟和秒。<a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">split()</a> ，用": "分隔符将字符串转换为分钟和秒。
+        </p>
+        <pre class="brush: python">
+h1, m1 = map(int, start_time.split(":"))
+h2, m2 = map(int, end_time.split(":"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        我需要帮助！
+    </div>
+    <div class="answer">
+        <p>
+            现在，您可以用小时和分钟的差值来计算工作日的持续时间。为此请使用<b class="code">timedelta</b> 对象。同时声明一个变量来存储实际工作日的天数。
+        </p>
+        <pre class="brush: python">
+working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+days = 0
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        如何查找工作日数？
+    </div>
+    <div class="answer">
+        <p>
+            我建议您将<b class="code">d1</b> 的原始值逐日改为<b class="code">d2</b> ，并检查每天是否为节假日或周末。如果是<b class="code">True</b> - 则递增<b class="code">days</b> 。使用<a target="_blank" href="https://www.w3schools.com/python/python_while_loops.asp">while</a> 循环遍历日期，使用<b class="code">date.isoweekday()</b> 查找日期的星期。
+        </p>
+        <pre class="brush: python">
+while d1 <= d2:
+    if d1 not in holy and d1.isoweekday() < 6:
+        days += 1
+    d1 += timedelta(days=1)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        计算工作日数时该怎么办？
+    </div>
+    <div class="answer">
+        <p>
+            计算每天的浮动工作小时数为<b class="code">timedelta.seconds/3600</b> ，然后乘以天数，最后将圆点后的数字四舍五入为 2。
+        </p>
+        <pre class="brush: python">
+return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        那么，我的最终解决方案应该是怎样的呢？
+    </div>
+    <div class="answer">
+        <p>
+            您只需将之前的所有提示连接起来，然后将代码封装成函数表达式即可。强烈建议对输入和输出数据使用类型提示。
+        </p>
+        <p>下面是整个解决方案：</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from datetime import timedelta, date
+
+
+def working_hours(
+    date1: str, date2: str, start_time: str, end_time: str, holy: list[str]
+) -> int | float:
+    
+    d1, d2 = map(date.fromisoformat, (date1, date2))
+    holy = tuple(map(date.fromisoformat, holy))
+    h1, m1 = map(int, start_time.split(":"))
+    h2, m2 = map(int, end_time.split(":"))
+    working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+    days = 0
+    while d1 <= d2:
+        if d1 not in holy and d1.isoweekday() < 6:
+            days += 1
+        d1 += timedelta(days=1)
+
+    return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+        </div>
+        <p>点击任务菜单<b>Best Solutions</b> ，查看更多有趣的解决方案！</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        谢谢！我现在知道并理解得更多了！一切正常！
+    </div>
+    <div class="answer">
+        很高兴听到这个消息 👍！
+    </div>
+</div>
+</body>

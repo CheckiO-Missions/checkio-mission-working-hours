@@ -1,0 +1,44 @@
+<!-- Describe task in general -->
+
+<p style="text-align: justify;">
+    编写一个函数，将两个日期和两个时间作为输入，并返回两个日期（包括两个日期）之间的总工作小时数。时间代表工作日的开始和结束时间。工作时间定义为周一至周五结束时间和开始时间之间的时间，不包括节假日。因此，该函数还需要一个参数，指定一个{% if is_js %}n 数组{% else %} 列表{% endif %} 中要排除的节假日（可以为空）。  
+</p>
+<p>
+    时间可能有分钟数。将其转换为浮点数 minutes/60，精度为两位数。
+</p>
+
+<!-- <p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}example.png" alt="example" style="max-height: 83px"/>
+</p> -->
+
+<!-- Explain input and output values -->
+<p>
+   <strong>输入</strong>五个参数：两个日期字符串 <span>(str{% if is_js %}ing{% endif %})</span>两个日期为字符串，两个时间为字符串，节假日为{% if is_js %}数组{% else %}列表{% endif %} <span>({% if is_js %}array{% else %}list{% endif %})</span>的字符串。
+</p>
+
+<p>
+   <strong>输出：</strong>以整数或浮点数表示的总工作时数 <span>({% if is_js %}number{% else %}int | float{% endif %})</span>. 
+</p>
+
+
+<p>
+    <strong>示例</strong>
+</p>
+
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<p class="for_info_only">
+    <strong>如何使用：</strong>
+    <i>计算工人或机器的总工作时数是企业的一项常规工作。</i>
+</p>
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<!-- <p>
+    <strong>Preconditions:</strong>
+    <ul>
+    <li><i>both given ints should be between -1000 and 1000</i></li>
+    </ul>
+</p> -->
