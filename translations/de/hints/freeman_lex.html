@@ -1,0 +1,135 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Ich habe keine Ahnung, wie ich mit der Lösung dieser Aufgabe beginnen soll.
+    </div>
+    <div class="answer">
+        <p>
+            Haben Sie eine Idee 💡! Konvertieren Sie alle Daten (gegebene zwei und Feiertage) in das Format <b class="code">date</b>, konvertieren Sie die Zeiten in Minuten und Sekunden als ganze Zahlen, finden Sie die Dauer des Arbeitstages. Zählen Sie bei der Iteration über die Daten zwischen den beiden gegebenen Daten nur diejenigen, die nicht auf einen Feiertag und kein Wochenende fallen. Ermitteln Sie anhand der Tagesdauer und der Anzahl der realen Arbeitstage die Gesamtarbeitsstunden.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, womit soll ich anfangen?
+    </div>
+    <div class="answer">
+        <p>
+            Um mit Datums- und Zeitangaben zu arbeiten, können Sie die Objekte aus dem Standardmodul <a target="_blank" href="https://docs.python.org/3/library/datetime.html">datetime</a> verwenden, wie <b class="code">date</b> und <b class="code">timedelta</b>. Lesen Sie darüber, es hilft Ihnen sehr bei der Lösung dieser Aufgabe.
+        </p>
+        <pre class="brush: python">
+from datetime import timedelta, date
+        </pre>
+        <p>
+            Konvertieren wir alle Datumsangaben vom Typ <b class="code">str</b> in das Objekt <b class="code">date</b>. Verwenden Sie die integrierte Funktion <a target="_blank" href="https://www.w3schools.com/python/ref_func_map.asp">map()</a> und wenden Sie die Methode <a target="_blank" href="https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat">date.fromisoformat</a> auf jedes Datum der Reihe nach an (alle angegebenen Strings eignen sich für diese Formatkonvertierung). Beachten Sie, dass Sie keine Klammern verwenden, wenn Sie sich auf eine Methode beziehen.
+        </p>
+        <pre class="brush: python">
+d1, d2 = map(date.fromisoformat, (date1, date2))
+holy = tuple(map(date.fromisoformat, holy))
+        </pre>
+        <p>
+            <b class="code">map()</b> die Funktion <b class="code">map</b> gibt ein Objekt zurück, so dass Sie im ersten Fall entpacken und im zweiten Fall mit <b class="code">tuple()</b> in eine Sequenz konvertieren müssen.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Was ist als nächstes zu tun?
+    </div>
+    <div class="answer">
+        <p>
+            Verwenden Sie dieselbe Logik und konvertieren Sie die Zeiten in Minuten und Sekunden als Ganzzahlen. <a target="_blank" href="https://www.w3schools.com/python/ref_string_split.asp">split()</a> Strings in Minuten und Sekunden mit ":" als Trennzeichen.
+        </p>
+        <pre class="brush: python">
+h1, m1 = map(int, start_time.split(":"))
+h2, m2 = map(int, end_time.split(":"))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ich brauche Hilfe!
+    </div>
+    <div class="answer">
+        <p>
+            Jetzt können Sie die Dauer eines Arbeitstages als Differenz von Stunden und Minuten berechnen. Verwenden Sie dazu das Objekt <b class="code">timedelta</b>. Deklarieren Sie auch eine Variable, um die Anzahl der realen Arbeitstage zu speichern.
+        </p>
+        <pre class="brush: python">
+working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+days = 0
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Wie ermittelt man die Anzahl der Arbeitstage?
+    </div>
+    <div class="answer">
+        <p>
+            Ich biete Ihnen an, <b class="code">d1</b> von seinem ursprünglichen Wert Tag für Tag auf <b class="code">d2</b> zu ändern und jeden Tag daraufhin zu überprüfen, ob er nicht ein Feiertag oder ein Wochenende ist. Wenn dies der Fall ist <b class="code">True</b> - erhöhen Sie <b class="code">days</b>. Verwenden Sie die Schleife <a target="_blank" href="https://www.w3schools.com/python/python_while_loops.asp">while</a>, um über die Daten zu iterieren und <b class="code">date.isoweekday()</b>, um einen Wochentag des Datums zu ermitteln.
+        </p>
+        <pre class="brush: python">
+while d1 <= d2:
+    if d1 not in holy and d1.isoweekday() < 6:
+        days += 1
+    d1 += timedelta(days=1)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Was ist zu tun, wenn ich eine Anzahl von Arbeitstagen berechnet habe?
+    </div>
+    <div class="answer">
+        <p>
+            Berechnen Sie eine Float-Anzahl von Arbeitsstunden pro Tag als <b class="code">timedelta.seconds/3600</b>, multiplizieren Sie mit der Anzahl der Tage und runden Sie auf 2 Zeichen nach dem Punkt.
+        </p>
+        <pre class="brush: python">
+return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Wie sollte also meine endgültige Lösung aussehen?
+    </div>
+    <div class="answer">
+        <p>
+            Sie müssen nur alle vorherigen Hinweise zusammenführen und Ihren Code in einen Funktionsausdruck verpacken. Die Verwendung von Typ-Hinweisen für Eingabe- und Ausgabedaten wird dringend empfohlen.
+        </p>
+        <p>Hier ist die gesamte Lösung:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from datetime import timedelta, date
+
+
+def working_hours(
+    date1: str, date2: str, start_time: str, end_time: str, holy: list[str]
+) -> int | float:
+    
+    d1, d2 = map(date.fromisoformat, (date1, date2))
+    holy = tuple(map(date.fromisoformat, holy))
+    h1, m1 = map(int, start_time.split(":"))
+    h2, m2 = map(int, end_time.split(":"))
+    working_hours_day = timedelta(hours=h2-h1, minutes=m2-m1)
+    days = 0
+    while d1 <= d2:
+        if d1 not in holy and d1.isoweekday() < 6:
+            days += 1
+        d1 += timedelta(days=1)
+
+    return round(days * working_hours_day.seconds/3600, 2)
+        </pre>
+        </div>
+        <p>Klicken Sie auf <b>Best Solutions</b> im Missionsmenü und sehen Sie sich viele andere interessante Lösungen an!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Vielen Dank! Ich weiß und verstehe jetzt mehr! Alles funktioniert einwandfrei!
+    </div>
+    <div class="answer">
+        Freut mich zu hören 👍!
+    </div>
+</div>
+</body>
